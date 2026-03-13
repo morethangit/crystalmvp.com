@@ -1779,4 +1779,11 @@
         }
       } catch (error) {
         console.error('Submission error:', error);
-        btn.textContent = '❌ Error s
+        btn.textContent = '❌ Error sending request. Please try again.';
+        btn.style.background = '#c8102e';
+        btn.disabled = false; // Allow retry
+      }
+    }
+  </script>
+</body>
+</html>
