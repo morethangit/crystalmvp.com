@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Form Submit</title>
+</head>
+<body>
+  <form onsubmit="handleSubmit(event)">
+    <input type="text" id="fname" placeholder="First Name" required>
+    <input type="text" id="lname" placeholder="Last Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="tel" id="phone" placeholder="Phone">
+    <select id="triptype" required>
+      <option value="">Select...</option>
+      <option>Walt Disney World</option>
+    </select>
+    <select id="travelers">
+      <option>1</option>
+    </select>
+    <input type="month" id="depart">
+    <select id="budget">
+      <option>Not sure yet</option>
+    </select>
+    <textarea id="notes"></textarea>
+    <button type="submit" class="btn-submit">Submit</button>
+  </form>
+
+  <script>
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      const originalText = btn.textContent;
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const data = {
+        "First Name": e.target.fname.value,
+        "Last Name": e.target.lname.value,
+        "Email": e.target.email.value,
+        "Phone Number": e.target.phone.value,
+        "Trip Type": e.target.triptype.value,
+        "Number of Travelers": e.target.travelers.value,
+        "Approximate Departure": e.target.depart.value,
+        "Rough Budget": e.target.budget.value,
+        "Anything else I should know?": e.target.notes.value
+      };
+
+      try {
+        const response = await fetch('https://sheetdb.io/api/v1/7xa4c3w2ovtbd', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          btn.textContent = '✓  Request Sent! I\'ll be in touch soon.';
+          btn.style.background = '#1a7a3c';
+        } else {
+          throw new Error('Failed to submit');
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        btn.textContent = '❌ Error sending request. Please try again.';
+        btn.style.background = '#c8102e';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
