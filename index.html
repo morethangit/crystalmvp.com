@@ -72,6 +72,12 @@
       flex-shrink: 0;
       box-shadow: var(--shadow-red);
     }
+    .nav-logo-icon img {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+      display: block;
+    }
     .nav-logo-text { line-height: 1.1; }
     .nav-logo-name {
       font-family: 'Playfair Display', serif;
@@ -531,6 +537,26 @@
       border-radius: 16px;
       padding: 20px 24px;
       box-shadow: var(--shadow-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 180px;
+      min-height: 84px;
+    }
+    .about-accent-logo {
+      max-width: 140px;
+      max-height: 42px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
+    }
+    .about-accent-fallback {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      text-align: center;
     }
     .about-accent-num {
       font-family: 'Playfair Display', serif;
@@ -1167,7 +1193,7 @@
   <!-- ─── NAV ─────────────────────────────────────── -->
   <nav id="navbar">
     <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">✦</div>
+      <div class="nav-logo-icon"><img id="logo-icon-main" alt="MVP logo icon"></div>
       <div class="nav-logo-text">
         <div class="nav-logo-name">Crystal Miller</div>
         <div class="nav-logo-sub">Magical Vacation Planner</div>
@@ -1264,8 +1290,9 @@
             </div>
           </div>
           <div class="about-accent-card">
-            <div class="about-accent-num">MVP</div>
-            <div class="about-accent-label">Certified Agent</div>
+            <img id="about-mvp-logo" class="about-accent-logo" alt="MVP Certified Agent"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+            <div class="about-accent-fallback" style="display:none;">MVP Certified Agent</div>
           </div>
         </div>
 
@@ -1606,7 +1633,7 @@
       <div class="footer-top">
         <div class="footer-brand">
           <a href="#" class="nav-logo" style="margin-bottom: 8px;">
-            <div class="nav-logo-icon">✦</div>
+            <div class="nav-logo-icon"><img id="logo-icon-footer" alt="MVP logo icon"></div>
             <div class="nav-logo-text">
               <div class="nav-logo-name" style="color:white;">Crystal Miller</div>
               <div class="nav-logo-sub">Magical Vacation Planner</div>
@@ -1678,6 +1705,18 @@
         const el = document.getElementById(d.id);
         if (el) el.src = d.url;
       });
+
+      if (PHOTOS.branding) {
+        const brandingImgs = [
+          { id: 'logo-icon-main', url: PHOTOS.branding.mvpLogoCircle },
+          { id: 'logo-icon-footer', url: PHOTOS.branding.mvpLogoCircle },
+          { id: 'about-mvp-logo', url: PHOTOS.branding.mvpLogoWordmark }
+        ];
+        brandingImgs.forEach(b => {
+          const el = document.getElementById(b.id);
+          if (el && b.url) el.src = b.url;
+        });
+      }
     });
     /* ─ NAV scroll effect ─ */
     const navbar = document.getElementById('navbar');

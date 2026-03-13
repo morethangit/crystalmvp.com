@@ -15,6 +15,10 @@ const PHOTOS = {
     maldives: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80',
     europe: 'https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80',
     headshot: 'https://i.imgur.com/WlY38iZ.jpeg', // Add your headshot URL here
+  },
+  branding: {
+    mvpLogoCircle: 'https://i.imgur.com/Wc3NSHn.png',
+    mvpLogoWordmark: 'https://i.imgur.com/cQa4ulW.png'
   }
 };
 
