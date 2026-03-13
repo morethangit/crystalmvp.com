@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Crystal Miller · Magical Vacation Planner</title>
+  <script src="photos.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 
   <style>
@@ -176,30 +177,15 @@
     }
 
     /* Destination slides using gradient art when images fail */
-    .slide-1 {
-      background-image:
-        linear-gradient(160deg, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.2) 60%),
-        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=80');
-    }
-    .slide-2 {
-      background-image:
-        linear-gradient(160deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%),
-        url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1800&q=80');
-    }
-    .slide-3 {
-      background-image:
-        linear-gradient(160deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%),
-        url('https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=1800&q=80');
-    }
-    .slide-4 {
-      background-image:
-        linear-gradient(160deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 60%),
-        url('https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1800&q=80');
-    }
-    .slide-5 {
-      background-image:
-        linear-gradient(160deg, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.2) 60%),
-        url('https://images.unsplash.com/photo-1568454537842-d933259bb258?w=1800&q=80');
+    .slide-1, .slide-2, .slide-3, .slide-4, .slide-5 {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.4s ease-in-out, transform 8s ease-out;
+      transform: scale(1.04);
     }
 
     .hero-overlay {
@@ -1390,7 +1376,7 @@
       <h2 class="section-title">Where Will <em>You</em> Go?</h2>
       <div class="dest-grid">
         <div class="dest-card">
-          <img src="https://images.unsplash.com/photo-1538359897570-fd90e7b52a97?w=1000&q=80" alt="Walt Disney World" loading="lazy"
+          <img id="dest-disney" alt="Walt Disney World" loading="lazy"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="dest-overlay"></div>
           <div class="dest-info">
@@ -1399,7 +1385,7 @@
           </div>
         </div>
         <div class="dest-card">
-          <img src="https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?w=800&q=80" alt="Caribbean Cruise" loading="lazy"
+          <img id="dest-caribbean" alt="Caribbean Cruise" loading="lazy"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="dest-overlay"></div>
           <div class="dest-info">
@@ -1408,7 +1394,7 @@
           </div>
         </div>
         <div class="dest-card">
-          <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Maldives" loading="lazy"
+          <img id="dest-maldives" alt="Maldives" loading="lazy"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="dest-overlay"></div>
           <div class="dest-info">
@@ -1417,7 +1403,7 @@
           </div>
         </div>
         <div class="dest-card">
-          <img src="https://images.unsplash.com/photo-1499678329028-101435549a4e?w=800&q=80" alt="Europe" loading="lazy"
+          <img id="dest-europe" alt="Europe" loading="lazy"
                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
           <div class="dest-overlay"></div>
           <div class="dest-info">
@@ -1668,6 +1654,26 @@
 
   <!-- ─── SCRIPTS ───────────────────────────────────── -->
   <script>
+    // Set hero slide backgrounds from PHOTOS.js
+    document.addEventListener('DOMContentLoaded', function() {
+      for (let i = 0; i < PHOTOS.heroSlides.length; i++) {
+        const slide = document.querySelector('.slide-' + (i+1));
+        if (slide) {
+          slide.style.backgroundImage = `linear-gradient(160deg, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.2) 60%), url('${PHOTOS.heroSlides[i]}')`;
+        }
+      }
+      // Set destination images
+      const destImgs = [
+        { id: 'dest-disney', url: PHOTOS.destinations.disney },
+        { id: 'dest-caribbean', url: PHOTOS.destinations.caribbean },
+        { id: 'dest-maldives', url: PHOTOS.destinations.maldives },
+        { id: 'dest-europe', url: PHOTOS.destinations.europe }
+      ];
+      destImgs.forEach(d => {
+        const el = document.getElementById(d.id);
+        if (el) el.src = d.url;
+      });
+    });
     /* ─ NAV scroll effect ─ */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
