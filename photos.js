@@ -17,3 +17,4 @@ const PHOTOS = {
     headshot: 'https://i.imgur.com/WlY38iZ.jpeg', // Add your headshot URL here
   }
 };
+
