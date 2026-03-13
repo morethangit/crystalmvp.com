@@ -500,6 +500,10 @@
       object-fit: cover;
       display: block;
     }
+    #about-headshot {
+      position: absolute;
+      inset: 0;
+    }
     .about-img-placeholder {
       width: 100%; height: 100%;
       display: flex;
@@ -1253,7 +1257,8 @@
       <div class="about-grid">
         <div class="about-img-wrap reveal">
           <div class="about-img-frame">
-            <div class="about-img-placeholder">
+            <img id="about-headshot" src="" alt="Crystal's headshot" class="about-img-placeholder" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="about-img-placeholder" style="display:none;">
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
               <span>Crystal's Photo Here</span>
             </div>
@@ -1631,7 +1636,7 @@
         <div class="footer-col">
           <h4>Contact</h4>
           <ul>
-            <li><a href="mailto:crystal@magicalvacationplanner.com">Email Crystal</a></li>
+            <li><a href="/cdn-cgi/l/email-protection#f09382898384919cb09d91979993919c8691939184999f9e809c919e9e9582de939f9d">Email Crystal</a></li>
             <li><a href="tel:5135550000">Call / Text</a></li>
             <li><a href="#">Cincinnati, Ohio</a></li>
             <li><a href="https://www.magicalvacationplanner.com" target="_blank">MVP Website ↗</a></li>
@@ -1653,7 +1658,7 @@
   </footer>
 
   <!-- ─── SCRIPTS ───────────────────────────────────── -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Set hero slide backgrounds from PHOTOS.js
     document.addEventListener('DOMContentLoaded', function() {
       for (let i = 0; i < PHOTOS.heroSlides.length; i++) {
@@ -1774,11 +1779,4 @@
         }
       } catch (error) {
         console.error('Submission error:', error);
-        btn.textContent = '❌ Error sending request. Please try again.';
-        btn.style.background = '#c8102e';
-        btn.disabled = false; // Allow retry
-      }
-    }
-  </script>
-</body>
-</html>
+        btn.textContent = '❌ Error s
