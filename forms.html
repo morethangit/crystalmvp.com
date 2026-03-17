@@ -526,7 +526,21 @@
       .nav-hamburger { display: flex; }
       .page-header { padding: 108px 24px 52px; }
       .form-block { padding: 52px 24px; scroll-margin-top: 72px; }
-      .jump-nav { padding: 0 24px; }
+      .jump-nav {
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        position: sticky;
+        box-shadow:
+          inset 20px 0 16px -16px rgba(15,15,15,0.12),
+          inset -20px 0 16px -16px rgba(15,15,15,0.12);
+      }
+      .jump-nav-inner {
+        width: max-content;
+        min-width: 100%;
+        padding: 0 24px;
+      }
       .jump-nav a { padding: 14px 16px 12px; font-size: 11px; }
       #forms-intro { padding: 36px 24px 0; }
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
