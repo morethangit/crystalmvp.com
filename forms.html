@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Client Forms · Crystal Miller · Magical Vacation Planner</title>
+  <script src="photos.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/InoCRZf.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/IEO6BBf.png">
+  <link rel="shortcut icon" href="https://i.imgur.com/InoCRZf.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/neSyHI0.png">
+
+  <style>
+    :root {
+      --red:        #C8102E;
+      --red-dark:   #9B0C22;
+      --red-soft:   #F5D5DB;
+      --black:      #0F0F0F;
+      --charcoal:   #2B2B2B;
+      --white:      #FFFFFF;
+      --off-white:  #FDF7F7;
+      --glass:      rgba(255,255,255,0.18);
+      --glass-dark: rgba(15,15,15,0.45);
+      --shadow:     0 8px 40px rgba(0,0,0,0.18);
+      --shadow-red: 0 8px 32px rgba(200,16,46,0.22);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--off-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--off-white); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 99px; }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 72px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(200,16,46,0.12);
+      transition: box-shadow 0.3s ease;
+    }
+    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: var(--red);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-red);
+    }
+    .nav-logo-icon img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 50%;
+    }
+    .nav-logo-text { line-height: 1.1; }
+    .nav-logo-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--black);
+      letter-spacing: 0.01em;
+    }
+    .nav-logo-sub {
+      font-size: 10px; font-weight: 500;
+      color: var(--red);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--charcoal);
+      position: relative;
+      transition: color 0.25s ease;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--red);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--red); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--red); }
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--red);
+      color: white !important;
+      padding: 10px 22px;
+      border-radius: 99px;
+      font-size: 12px !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.1em;
+      box-shadow: var(--shadow-red);
+      transition: background 0.25s, transform 0.2s, box-shadow 0.25s !important;
+    }
+    .nav-cta:hover {
+      background: var(--red-dark) !important;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 36px rgba(200,16,46,0.35) !important;
+    }
+    .nav-cta::after { display: none !important; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      background: none;
+      border: none;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--charcoal);
+      border-radius: 99px;
+      transition: all 0.3s;
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 998;
+      flex-direction: column;
+      padding: 24px 32px;
+      gap: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(200,16,46,0.1);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      text-decoration: none;
+      font-size: 16px; font-weight: 500;
+      color: var(--charcoal);
+      transition: color 0.2s;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .mobile-nav a:hover { color: var(--red); }
+    .mobile-nav a:last-child { border-bottom: none; }
+
+    /* ─── PAGE HEADER ─────────────────────────────────── */
+    .page-header {
+      background: var(--black);
+      padding: 140px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,16,46,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .page-header-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red-soft);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .page-header-eyebrow::before {
+      content: '';
+      width: 32px; height: 1.5px;
+      background: var(--red);
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      color: white;
+      line-height: 1.08;
+      margin-bottom: 18px;
+    }
+    .page-header h1 em { font-style: italic; color: var(--red-soft); }
+    .page-header p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      line-height: 1.65;
+    }
+
+    /* ─── SECTION COMMONS ─────────────────────────────── */
+    .section-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-eyebrow::before {
+      content: '';
+      width: 32px; height: 1.5px;
+      background: var(--red);
+      border-radius: 99px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.12;
+      margin-bottom: 12px;
+    }
+    .section-title em { font-style: italic; color: var(--red); }
+
+    /* ─── FORMS INTRO STRIP ───────────────────────────── */
+    #forms-intro {
+      background: white;
+      padding: 60px 60px 0;
+    }
+    .forms-intro-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .intro-card {
+      background: var(--off-white);
+      border: 1px solid rgba(200,16,46,0.09);
+      border-radius: 18px;
+      padding: 28px 28px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+    .intro-card:hover {
+      box-shadow: 0 10px 32px rgba(0,0,0,0.08);
+      transform: translateY(-3px);
+    }
+    .intro-card-icon {
+      width: 44px; height: 44px;
+      background: var(--red-soft);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .intro-card-text strong {
+      display: block;
+      font-size: 15px; font-weight: 600;
+      color: var(--black);
+      margin-bottom: 4px;
+    }
+    .intro-card-text span {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    /* ─── JUMP NAV ──────────────────────────────────────── */
+    .jump-nav {
+      background: white;
+      border-bottom: 1px solid rgba(200,16,46,0.1);
+      padding: 0 60px;
+      position: sticky;
+      top: 72px;
+      z-index: 90;
+    }
+    .jump-nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+    }
+    .jump-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #999;
+      padding: 16px 24px 14px;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .jump-nav a:hover {
+      color: var(--red);
+      border-bottom-color: var(--red);
+    }
+    .jump-nav-dot {
+      font-size: 10px;
+      color: rgba(200,16,46,0.3);
+      align-self: center;
+    }
+
+    /* ─── FORM BLOCKS ─────────────────────────────────── */
+    .form-block {
+      padding: 80px 60px;
+      scroll-margin-top: 72px;
+    }
+    .form-block:nth-child(odd) { background: white; }
+    .form-block:nth-child(even) { background: var(--off-white); }
+
+    .form-block-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 72px;
+      align-items: start;
+    }
+
+    .form-meta .section-eyebrow { margin-bottom: 12px; }
+    .form-meta .section-title { margin-bottom: 14px; }
+    .form-meta-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 300;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .form-meta-note {
+      background: var(--red-soft);
+      border-left: 3px solid var(--red);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--red-dark);
+      line-height: 1.55;
+    }
+    .form-meta-note strong { display: block; margin-bottom: 2px; }
+
+    /* Cognito embed container */
+    .cognito-wrap {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(200,16,46,0.08);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+      padding: 12px;
+      min-height: 200px;
+    }
+    .cognito-wrap iframe,
+    .cognito-wrap > div {
+      display: block;
+      width: 100%;
+      border: none;
+    }
+
+    /* Placeholder shown until embed is added */
+    .embed-placeholder {
+      border: 2px dashed rgba(200,16,46,0.22);
+      border-radius: 14px;
+      padding: 52px 32px;
+      text-align: center;
+      color: var(--red);
+      background: #fff8f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .embed-placeholder-icon { font-size: 36px; opacity: 0.4; }
+    .embed-placeholder strong {
+      font-size: 15px; font-weight: 600;
+      color: var(--red-dark);
+    }
+    .embed-placeholder code {
+      font-size: 12px;
+      background: rgba(200,16,46,0.07);
+      padding: 6px 14px;
+      border-radius: 8px;
+      color: var(--red);
+      font-family: monospace;
+    }
+    .embed-placeholder p {
+      font-size: 13px;
+      color: #aaa;
+      max-width: 320px;
+      line-height: 1.6;
+    }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--black);
+      color: white;
+      padding: 80px 60px 40px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 64px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+      margin-top: 16px;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-col ul a {
+      text-decoration: none;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      transition: color 0.2s, padding-left 0.2s;
+    }
+    .footer-col ul a:hover { color: white; padding-left: 4px; }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin-bottom: 32px; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy { font-size: 12.5px; color: rgba(255,255,255,0.35); }
+    .footer-copy span { color: var(--red); }
+    .footer-social { display: flex; gap: 12px; }
+    .social-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 15px;
+      transition: background 0.25s, color 0.25s, transform 0.2s;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .social-btn:hover { background: var(--red); color: white; border-color: var(--red); transform: translateY(-2px); }
+
+    /* ─── ANIMATIONS ──────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav { padding: 0 32px; }
+      .page-header { padding: 120px 40px 64px; }
+      .form-block { padding: 64px 40px; scroll-margin-top: 72px; }
+      .jump-nav { padding: 0 40px; }
+      #forms-intro { padding: 48px 40px 0; }
+      .form-block-inner { grid-template-columns: 1fr; gap: 36px; }
+      .forms-intro-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-header { padding: 108px 24px 52px; }
+      .form-block { padding: 52px 24px; scroll-margin-top: 72px; }
+      .jump-nav { padding: 0 24px; }
+      .jump-nav a { padding: 14px 16px 12px; font-size: 11px; }
+      #forms-intro { padding: 36px 24px 0; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      footer { padding: 60px 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────── -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon"><img id="logo-icon-main" alt="MVP logo icon"></div>
+      <div class="nav-logo-text">
+        <div class="nav-logo-name">Crystal Miller</div>
+        <div class="nav-logo-sub">Magical Vacation Planner</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#destinations">Destinations</a></li>
+      <li><a href="index.html#testimonials">Reviews</a></li>
+      <li><a href="forms.html" class="active">Forms</a></li>
+      <li><a href="index.html#quote" class="nav-cta">Get a Free Quote</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="index.html#about" onclick="closeMobile()">About Crystal</a>
+    <a href="index.html#services" onclick="closeMobile()">Services</a>
+    <a href="index.html#destinations" onclick="closeMobile()">Destinations</a>
+    <a href="index.html#process" onclick="closeMobile()">How It Works</a>
+    <a href="index.html#testimonials" onclick="closeMobile()">Reviews</a>
+    <a href="forms.html" onclick="closeMobile()" style="color:var(--red);font-weight:600;">✦ Client Forms</a>
+    <a href="index.html#quote" onclick="closeMobile()" style="color:var(--red);font-weight:700;">✦ Get a Free Quote</a>
+  </div>
+
+  <!-- ─── PAGE HEADER ──────────────────────────────── -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-header-eyebrow">Client Resources</div>
+      <h1>Your Trip Starts<br>with a <em>Form</em></h1>
+      <p>Everything Crystal needs to get started is right here — fill out the form that fits your situation and she'll be in touch shortly.</p>
+    </div>
+  </div>
+
+  <!-- ─── JUMP NAV ──────────────────────────────────── -->
+  <div class="jump-nav">
+    <div class="jump-nav-inner">
+      <a href="#new-client">New Client</a>
+      <span class="jump-nav-dot">◆</span>
+      <a href="#returning-client">Returning Client</a>
+      <span class="jump-nav-dot">◆</span>
+      <a href="#feedback">Post-Trip Feedback</a>
+    </div>
+  </div>
+
+  <!-- ─── FORM 1: New Client Quote ─────────────────── -->
+  <div class="form-block" id="new-client">
+    <div class="form-block-inner">
+      <div class="form-meta reveal">
+        <div class="section-eyebrow">Start Here</div>
+        <h2 class="section-title">New Client <em>Quote Request</em></h2>
+        <p class="form-meta-desc">
+          First time working with Crystal? Start here. Share your dream trip details and she'll come back with personalized ideas and pricing.
+        </p>
+        <div class="form-meta-note">
+          <strong>Who this is for</strong>
+          New clients looking to plan any type of vacation — Disney, cruises, all-inclusives, international travel, and more.
+        </div>
+      </div>
+      <div class="cognito-wrap reveal">
+        <!-- ─────────────────────────────────────────────────────────────────
+             REPLACE THIS BLOCK with your Cognito Forms embed snippet.
+             From Cognito Forms: open your form → Publish → Embed → copy the
+             "Seamless" script tag or iframe and paste it here.
+
+             Seamless JS example:
+               <script src="https://www.cognitoforms.com/f/seamless.js"
+                 data-key="YOUR_ACCOUNT_KEY" data-form="1"><\/script>
+
+             OR iframe example:
+               <iframe src="https://www.cognitoforms.com/YourOrg/YourFormName"
+                 style="border:0;width:100%;height:700px;"></iframe>
+        ──────────────────────────────────────────────────────────────────── -->
+        <div class="embed-placeholder">
+          <div class="embed-placeholder-icon">📋</div>
+          <strong>New Client Quote Request Form</strong>
+          <code>Paste Cognito Forms embed here</code>
+          <p>Go to your Cognito Forms dashboard → open this form → Publish → Embed, then paste the snippet above.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FORM 2: Returning Client ─────────────────── -->
+  <div class="form-block" id="returning-client">
+    <div class="form-block-inner">
+      <div class="form-meta reveal">
+        <div class="section-eyebrow">Coming Back?</div>
+        <h2 class="section-title">Returning Client <em>Request</em></h2>
+        <p class="form-meta-desc">
+          Already worked with Crystal before? Use this shorter form to kick off your next trip — she'll already have your preferences on file.
+        </p>
+        <div class="form-meta-note">
+          <strong>Who this is for</strong>
+          Past clients ready to book their next adventure. Skip the basics — just tell Crystal the new details.
+        </div>
+      </div>
+      <div class="cognito-wrap reveal">
+        <!-- Replace with your Cognito returning-client form embed -->
+        <div class="embed-placeholder">
+          <div class="embed-placeholder-icon">🔄</div>
+          <strong>Returning Client Form</strong>
+          <code>Paste Cognito Forms embed here</code>
+          <p>Paste the Cognito embed snippet for your returning-client form here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FORM 3: Post-Trip Feedback ──────────────── -->
+  <div class="form-block" id="feedback">
+    <div class="form-block-inner">
+      <div class="form-meta reveal">
+        <div class="section-eyebrow">Share Your Experience</div>
+        <h2 class="section-title">Post-Trip <em>Feedback</em></h2>
+        <p class="form-meta-desc">
+          Just got back? Crystal loves hearing how your trip went — your feedback helps her get even better and helps future travelers make great choices.
+        </p>
+        <div class="form-meta-note">
+          <strong>Who this is for</strong>
+          Clients who have recently returned from a Crystal-planned trip. Takes about 2 minutes.
+        </div>
+      </div>
+      <div class="cognito-wrap reveal">
+        <!-- Replace with your Cognito feedback form embed -->
+        <div class="embed-placeholder">
+          <div class="embed-placeholder-icon">⭐</div>
+          <strong>Post-Trip Feedback Form</strong>
+          <code>Paste Cognito Forms embed here</code>
+          <p>Paste the Cognito embed snippet for your feedback / review form here.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FOOTER ───────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" style="margin-bottom: 8px;">
+            <div class="nav-logo-icon"><img id="logo-icon-footer" alt="MVP logo icon"></div>
+            <div class="nav-logo-text">
+              <div class="nav-logo-name" style="color:white;">Crystal Miller</div>
+              <div class="nav-logo-sub">Magical Vacation Planner</div>
+            </div>
+          </a>
+          <p>Independent travel consultant with Magical Vacation Planner. Based in Cincinnati, Ohio — booking dream trips for clients everywhere.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="index.html#services">Disney Vacations</a></li>
+            <li><a href="index.html#services">Cruise Packages</a></li>
+            <li><a href="index.html#services">All-Inclusive Resorts</a></li>
+            <li><a href="index.html#services">Honeymoons</a></li>
+            <li><a href="index.html#services">International Travel</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html#about">About Crystal</a></li>
+            <li><a href="index.html#process">How It Works</a></li>
+            <li><a href="index.html#testimonials">Client Reviews</a></li>
+            <li><a href="index.html#quote">Free Quote</a></li>
+            <li><a href="forms.html">Client Forms</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:crystal.m@magicalvacationplanner.com">Email Crystal</a></li>
+            <li><a href="tel:5132353640">Call / Text</a></li>
+            <li><a href="#">Cincinnati, Ohio</a></li>
+            <li><a href="https://www.magicalvacationplanner.com" target="_blank">MVP Website ↗</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-divider" />
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2026 Crystal Miller · Independent Agent with <span>Magical Vacation Planner</span> · All rights reserved.
+        </div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/travelwithcrystalsmagicalvacations" class="social-btn" title="Facebook">f</a>
+          <a href="https://www.instagram.com/magicaltripswithcrystal/" class="social-btn" title="Instagram">✦</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof PHOTOS !== 'undefined' && PHOTOS.branding) {
+        ['logo-icon-main', 'logo-icon-footer'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.src = PHOTOS.branding.mvpLogoCircle;
+        });
+      }
+    });
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 30);
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
+    function closeMobile() { mobileNav.classList.remove('open'); }
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
