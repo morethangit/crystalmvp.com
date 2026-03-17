@@ -1172,6 +1172,12 @@
       .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
 
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      .nav-cta { display: none; }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 0 24px; }
       .nav-links { display: none; }
@@ -1192,6 +1198,14 @@
       .form-row { grid-template-columns: 1fr; }
       .quote-form-wrap { padding: 32px 24px; }
     }
+
+    /* ─── PAGE TRANSITIONS ───────────────────────────── */
+    body {
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    body.page-visible { opacity: 1; }
+    body.page-exit { opacity: 0; transition: opacity 0.16s ease; }
   </style>
 </head>
 <body>
@@ -1693,6 +1707,21 @@
 
   <!-- ─── SCRIPTS ───────────────────────────────────── -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ─ Page transition ─ */
+    window.addEventListener('pageshow', () => document.body.classList.add('page-visible'));
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      // Only intercept same-origin, cross-page navigations (not hash-only links)
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript')) return;
+      const url = new URL(href, location.href);
+      if (url.origin !== location.origin || url.pathname === location.pathname) return;
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => { location.href = href; }, 170);
+    });
+
     // Set hero slide backgrounds from PHOTOS.js
     document.addEventListener('DOMContentLoaded', function() {
       for (let i = 0; i < PHOTOS.heroSlides.length; i++) {

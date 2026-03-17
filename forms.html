@@ -349,6 +349,11 @@
       color: rgba(200,16,46,0.3);
       align-self: center;
     }
+    @media (max-width: 960px) {
+      nav { padding: 0 24px; }
+      .nav-links { gap: 20px; }
+      .nav-cta { display: none; }
+    }
 
     /* ─── FORM BLOCKS ─────────────────────────────────── */
     .form-block {
@@ -527,6 +532,14 @@
       .footer-top { grid-template-columns: 1fr; gap: 32px; }
       footer { padding: 60px 24px 32px; }
     }
+
+    /* ─── PAGE TRANSITIONS ───────────────────────────── */
+    body {
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+    body.page-visible { opacity: 1; }
+    body.page-exit { opacity: 0; transition: opacity 0.16s ease; }
   </style>
 </head>
 <body>
@@ -576,26 +589,28 @@
   <!-- ─── JUMP NAV ──────────────────────────────────── -->
   <div class="jump-nav">
     <div class="jump-nav-inner">
-      <a href="#new-client">New Client</a>
+      <a href="#form-1">Complimentary Quote</a>
       <span class="jump-nav-dot">◆</span>
-      <a href="#returning-client">Returning Client</a>
+      <a href="#form-2">Form of Payment</a>
       <span class="jump-nav-dot">◆</span>
-      <a href="#feedback">Post-Trip Feedback</a>
+      <a href="#form-3">Reservation Details</a>
+      <span class="jump-nav-dot">◆</span>
+      <a href="#form-4">Cruise Quote</a>
     </div>
   </div>
 
   <!-- ─── FORM 1: New Client Quote ─────────────────── -->
-  <div class="form-block" id="new-client">
+  <div class="form-block" id="form-1">
     <div class="form-block-inner">
       <div class="form-meta reveal">
         <div class="section-eyebrow">Start Here</div>
-        <h2 class="section-title">New Client <em>Quote Request</em></h2>
+        <h2 class="section-title">Complimentary <em>Quote Form</em></h2>
         <p class="form-meta-desc">
           First time working with Crystal? Start here. Share your dream trip details and she'll come back with personalized ideas and pricing.
         </p>
         <div class="form-meta-note">
           <strong>Who this is for</strong>
-          New clients looking to plan any type of vacation — Disney, cruises, all-inclusives, international travel, and more.
+          Clients looking to plan any type of vacation — Disney, cruises, all-inclusives, international travel, and more.
         </div>
       </div>
       <div class="cognito-wrap reveal">
@@ -612,64 +627,67 @@
                <iframe src="https://www.cognitoforms.com/YourOrg/YourFormName"
                  style="border:0;width:100%;height:700px;"></iframe>
         ──────────────────────────────────────────────────────────────────── -->
-        <div class="embed-placeholder">
-          <div class="embed-placeholder-icon">📋</div>
-          <strong>New Client Quote Request Form</strong>
-          <code>Paste Cognito Forms embed here</code>
-          <p>Go to your Cognito Forms dashboard → open this form → Publish → Embed, then paste the snippet above.</p>
-        </div>
+        <script src="https://www.cognitoforms.com/f/seamless.js" data-key="dWqmU0SSI0OHVA2Lqqr7NQ" data-form="1"></script>
       </div>
     </div>
   </div>
 
-  <!-- ─── FORM 2: Returning Client ─────────────────── -->
-  <div class="form-block" id="returning-client">
+  <!-- ─── FORM 2: Form of Payment ───────────────────── -->
+  <div class="form-block" id="form-2">
     <div class="form-block-inner">
       <div class="form-meta reveal">
-        <div class="section-eyebrow">Coming Back?</div>
-        <h2 class="section-title">Returning Client <em>Request</em></h2>
+        <div class="section-eyebrow">Form of Payment</div>
+        <h2 class="section-title">Secure <em>Payment Form</em></h2>
         <p class="form-meta-desc">
-          Already worked with Crystal before? Use this shorter form to kick off your next trip — she'll already have your preferences on file.
+          Ready to pay for your trip? Use this form to securely submit your payment details. Crystal will apply it to your booking and confirm everything with you directly.
         </p>
         <div class="form-meta-note">
           <strong>Who this is for</strong>
-          Past clients ready to book their next adventure. Skip the basics — just tell Crystal the new details.
+          Clients who have received an invoice and are ready to pay for an upcoming booking.
         </div>
       </div>
       <div class="cognito-wrap reveal">
-        <!-- Replace with your Cognito returning-client form embed -->
-        <div class="embed-placeholder">
-          <div class="embed-placeholder-icon">🔄</div>
-          <strong>Returning Client Form</strong>
-          <code>Paste Cognito Forms embed here</code>
-          <p>Paste the Cognito embed snippet for your returning-client form here.</p>
-        </div>
+        <script src="https://www.cognitoforms.com/f/seamless.js" data-key="dWqmU0SSI0OHVA2Lqqr7NQ" data-form="3"></script>
       </div>
     </div>
   </div>
 
-  <!-- ─── FORM 3: Post-Trip Feedback ──────────────── -->
-  <div class="form-block" id="feedback">
+  <!-- ─── FORM 3: Client Reservation Details ─────────── -->
+  <div class="form-block" id="form-3">
     <div class="form-block-inner">
       <div class="form-meta reveal">
-        <div class="section-eyebrow">Share Your Experience</div>
-        <h2 class="section-title">Post-Trip <em>Feedback</em></h2>
+        <div class="section-eyebrow">Client Reservation Details</div>
+        <h2 class="section-title">Your Reservation <em>Details</em></h2>
         <p class="form-meta-desc">
-          Just got back? Crystal loves hearing how your trip went — your feedback helps her get even better and helps future travelers make great choices.
+          Help Crystal finalize your booking with the personal details she'll need — names, dates, preferences, and travel document info — so everything is in order before you go.
         </p>
         <div class="form-meta-note">
           <strong>Who this is for</strong>
-          Clients who have recently returned from a Crystal-planned trip. Takes about 2 minutes.
+          Clients who've been quoted and are moving forward with a booking. Completing this form lets Crystal get everything locked in on your behalf.
         </div>
       </div>
       <div class="cognito-wrap reveal">
-        <!-- Replace with your Cognito feedback form embed -->
-        <div class="embed-placeholder">
-          <div class="embed-placeholder-icon">⭐</div>
-          <strong>Post-Trip Feedback Form</strong>
-          <code>Paste Cognito Forms embed here</code>
-          <p>Paste the Cognito embed snippet for your feedback / review form here.</p>
+        <script src="https://www.cognitoforms.com/f/seamless.js" data-key="dWqmU0SSI0OHVA2Lqqr7NQ" data-form="6"></script>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── FORM 4: Cruise Quote ───────────────────────── -->
+  <div class="form-block" id="form-4">
+    <div class="form-block-inner">
+      <div class="form-meta reveal">
+        <div class="section-eyebrow">Cruise Quote</div>
+        <h2 class="section-title">Cruise Quote <em>Request</em></h2>
+        <p class="form-meta-desc">
+          Dreaming of the open sea? Fill out this form with your cruise preferences and Crystal will put together personalized options across the top cruise lines — ocean, river, luxury, and family-friendly.
+        </p>
+        <div class="form-meta-note">
+          <strong>Who this is for</strong>
+          Anyone interested in a cruise vacation. Whether it's your first sailing or your fiftieth, Crystal will find the right ship, itinerary, and cabin for you.
         </div>
+      </div>
+      <div class="cognito-wrap reveal">
+        <script src="https://www.cognitoforms.com/f/seamless.js" data-key="dWqmU0SSI0OHVA2Lqqr7NQ" data-form="5"></script>
       </div>
     </div>
   </div>
@@ -750,6 +768,20 @@
     const mobileNav = document.getElementById('mobileNav');
     hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
     function closeMobile() { mobileNav.classList.remove('open'); }
+
+    /* ─ Page transition ─ */
+    window.addEventListener('pageshow', () => document.body.classList.add('page-visible'));
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href]');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('javascript')) return;
+      const url = new URL(href, location.href);
+      if (url.origin !== location.origin || url.pathname === location.pathname) return;
+      e.preventDefault();
+      document.body.classList.add('page-exit');
+      setTimeout(() => { location.href = href; }, 170);
+    });
 
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
