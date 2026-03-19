@@ -16,6 +16,13 @@ const PHOTOS = {
     europe: 'https://i.imgur.com/e7foQ2d.jpeg', 
     headshot: 'https://i.imgur.com/WlY38iZ.jpeg', 
   },
+  aboutCarousel: [
+    'https://i.imgur.com/WlY38iZ.jpeg',
+    'https://i.imgur.com/MDgbIol.jpeg',
+    'https://i.imgur.com/e7foQ2d.jpeg',
+    'https://i.imgur.com/qdsJsrw.jpeg',
+    'https://i.imgur.com/XPCHYw4.jpeg'
+  ],
   branding: {
     mvpLogoCircle: 'https://i.imgur.com/Wc3NSHn.png',
     mvpLogoWordmark: 'https://i.imgur.com/cQa4ulW.png'

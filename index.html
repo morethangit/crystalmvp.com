@@ -504,6 +504,7 @@
       border-radius: 24px;
       overflow: hidden;
       aspect-ratio: 4/5;
+      min-height: 520px;
       background: var(--red-soft);
       position: relative;
     }
@@ -512,11 +513,56 @@
       object-fit: cover;
       display: block;
     }
-    #about-headshot {
+    .about-carousel {
       position: absolute;
       inset: 0;
+      overflow: hidden;
+    }
+    .about-carousel-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+      background: var(--red-soft);
+    }
+    .about-carousel-slide.active { opacity: 1; }
+    .about-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+    .about-carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 7px;
+      z-index: 3;
+      padding: 5px 8px;
+      border-radius: 99px;
+      background: rgba(15,15,15,0.35);
+      backdrop-filter: blur(6px);
+    }
+    .about-carousel-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 99px;
+      border: none;
+      padding: 0;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: width 0.2s ease, background 0.2s ease;
+    }
+    .about-carousel-dot.active {
+      width: 20px;
+      background: white;
     }
     .about-img-placeholder {
+      position: absolute;
+      inset: 0;
       width: 100%; height: 100%;
       display: flex;
       align-items: center;
@@ -579,7 +625,8 @@
     }
 
     .about-text { padding-left: 20px; }
-    .about-text .section-body { max-width: 100%; margin-bottom: 28px; }
+    .about-text .section-body { max-width: 100%; margin-bottom: 16px; }
+    .about-text .section-body:last-of-type { margin-bottom: 0; }
 
     .about-tags {
       display: flex;
@@ -1162,6 +1209,7 @@
       .hero-badge { right: 32px; }
       section { padding: 80px 40px; }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-img-frame { min-height: 500px; }
       .about-text { padding-left: 0; }
       .services-grid { grid-template-columns: repeat(2, 1fr); }
       .process-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -1187,6 +1235,8 @@
       .hero-badge { display: none; }
       .hero-actions { flex-direction: column; align-items: flex-start; }
       section { padding: 64px 24px; }
+      .about-img-frame { min-height: 420px; }
+      .about-carousel-slide img { object-position: center 26%; }
       .quote-inner { flex-direction: column; padding: 36px 28px; }
       .services-grid { grid-template-columns: 1fr; }
       .process-grid { grid-template-columns: 1fr; }
@@ -1305,10 +1355,33 @@
       <div class="about-grid">
         <div class="about-img-wrap reveal">
           <div class="about-img-frame">
-            <img id="about-headshot" src="https://i.imgur.com/WlY38iZ.jpeg" alt="Crystal's headshot" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <div class="about-img-placeholder" style="display:none;">
+            <div class="about-carousel" id="aboutCarousel">
+              <div class="about-carousel-slide active">
+                <img id="about-carousel-1" alt="Crystal travel planning moment" onerror="this.style.display='none'">
+              </div>
+              <div class="about-carousel-slide">
+                <img id="about-carousel-2" alt="Travel memory with Crystal" onerror="this.style.display='none'">
+              </div>
+              <div class="about-carousel-slide">
+                <img id="about-carousel-3" alt="Crystal destination inspiration" onerror="this.style.display='none'">
+              </div>
+              <div class="about-carousel-slide">
+                <img id="about-carousel-4" alt="Crystal curated vacation moment" onerror="this.style.display='none'">
+              </div>
+              <div class="about-carousel-slide">
+                <img id="about-carousel-5" alt="Crystal travel destination view" onerror="this.style.display='none'">
+              </div>
+            </div>
+            <div class="about-carousel-dots" id="aboutCarouselDots">
+              <button type="button" class="about-carousel-dot active" data-slide="0" aria-label="View about photo 1"></button>
+              <button type="button" class="about-carousel-dot" data-slide="1" aria-label="View about photo 2"></button>
+              <button type="button" class="about-carousel-dot" data-slide="2" aria-label="View about photo 3"></button>
+              <button type="button" class="about-carousel-dot" data-slide="3" aria-label="View about photo 4"></button>
+              <button type="button" class="about-carousel-dot" data-slide="4" aria-label="View about photo 5"></button>
+            </div>
+            <div class="about-img-placeholder" id="aboutCarouselPlaceholder" style="display:none;">
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-              <span>Crystal's Photo Here</span>
+              <span>Travel with Crystal</span>
             </div>
           </div>
           <div class="about-accent-card">
@@ -1320,12 +1393,15 @@
 
         <div class="about-text reveal">
           <div class="section-eyebrow">About Crystal</div>
-          <h2 class="section-title">Your Vacation Is My <em>Passion</em></h2>
+          <h2 class="section-title">Your Vacation, <em>Handled</em></h2>
           <p class="section-body">
-            Hi, I'm Crystal Miller — a travel consultant with Magical Vacation Planner, based right here in Cincinnati, Ohio. I believe every family, couple, and solo adventurer deserves a vacation that goes beyond expectations.
+            Forget the 47 browser tabs. Tell me what you're dreaming of and I'll take it from there — comparing options, tracking promotions, coordinating the details most people don't think about until they're already at the airport. I do this every day, so I move faster, catch more, and ask the right questions before you even know to ask them.
           </p>
-          <p class="section-body" style="margin-top: 16px;">
-            My job is to know every resort, cruise line, and destination so you don't have to. I've personally experienced many of the trips I book, and I stay up-to-date on the latest deals, perks, and promotions — so you always get the most for your budget.
+          <p class="section-body">
+            I've also been every kind of traveler. Romantic getaways. Toddlers who crash at 2pm. Grandparents who need a slower pace. Multigenerational trips where everyone wants something different. I know what it feels like from the inside — which means I know exactly what to plan for. Been there, done that. I've got you covered.
+          </p>
+          <p class="section-body">
+            And if something comes up? You have someone to call.
           </p>
           <div class="about-tags">
             <span class="tag">Disney Expert</span>
@@ -1752,6 +1828,94 @@
           const el = document.getElementById(b.id);
           if (el && b.url) el.src = b.url;
         });
+      }
+
+      const aboutCarouselImgs = [
+        document.getElementById('about-carousel-1'),
+        document.getElementById('about-carousel-2'),
+        document.getElementById('about-carousel-3'),
+        document.getElementById('about-carousel-4'),
+        document.getElementById('about-carousel-5')
+      ];
+      const aboutSlides = document.querySelectorAll('.about-carousel-slide');
+      const aboutDots = document.querySelectorAll('.about-carousel-dot');
+      const aboutPlaceholder = document.getElementById('aboutCarouselPlaceholder');
+      const aboutCarouselWrap = document.getElementById('aboutCarousel');
+      const aboutDotWrap = document.getElementById('aboutCarouselDots');
+
+      const aboutSources = (PHOTOS.aboutCarousel && PHOTOS.aboutCarousel.length)
+        ? PHOTOS.aboutCarousel
+        : [PHOTOS.destinations?.headshot || ''];
+
+      aboutCarouselImgs.forEach((img, i) => {
+        if (!img) return;
+        const src = aboutSources[i] || aboutSources[0] || '';
+        if (src) img.src = src;
+      });
+
+      if (!aboutSources[0] && aboutPlaceholder) {
+        aboutPlaceholder.style.display = 'flex';
+      }
+
+      let aboutCurrent = 0;
+      let aboutTimer;
+
+      function showAboutSlide(index) {
+        if (!aboutSlides.length) return;
+        aboutSlides.forEach((slide, i) => slide.classList.toggle('active', i === index));
+        aboutDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+        aboutCurrent = index;
+      }
+
+      function startAboutCarousel() {
+        if (aboutSlides.length < 2) return;
+        aboutTimer = setInterval(() => {
+          showAboutSlide((aboutCurrent + 1) % aboutSlides.length);
+        }, 4200);
+      }
+
+      if (aboutSlides.length > 1) {
+        aboutDots.forEach((dot, i) => {
+          dot.addEventListener('click', () => {
+            clearInterval(aboutTimer);
+            showAboutSlide(i);
+            startAboutCarousel();
+          });
+        });
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+        aboutCarouselWrap.addEventListener('touchstart', (event) => {
+          const touch = event.changedTouches[0];
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+        }, { passive: true });
+
+        aboutCarouselWrap.addEventListener('touchend', (event) => {
+          const touch = event.changedTouches[0];
+          const deltaX = touch.clientX - touchStartX;
+          const deltaY = touch.clientY - touchStartY;
+          if (Math.abs(deltaX) < 36 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+
+          clearInterval(aboutTimer);
+          if (deltaX < 0) {
+            showAboutSlide((aboutCurrent + 1) % aboutSlides.length);
+          } else {
+            showAboutSlide((aboutCurrent - 1 + aboutSlides.length) % aboutSlides.length);
+          }
+          startAboutCarousel();
+        }, { passive: true });
+
+        startAboutCarousel();
+      } else if (aboutDotWrap) {
+        aboutDotWrap.style.display = 'none';
+      }
+
+      const allAboutImagesFailed = aboutCarouselImgs.every(img => !img || !img.getAttribute('src'));
+      if (allAboutImagesFailed && aboutPlaceholder) {
+        aboutPlaceholder.style.display = 'flex';
+        if (aboutCarouselWrap) aboutCarouselWrap.style.display = 'none';
+        if (aboutDotWrap) aboutDotWrap.style.display = 'none';
       }
     });
     /* ─ NAV scroll effect ─ */
