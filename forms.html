@@ -11,552 +11,9 @@
   <link rel="icon" type="image/png" sizes="16x16" href="https://i.imgur.com/IEO6BBf.png">
   <link rel="shortcut icon" href="https://i.imgur.com/InoCRZf.png">
   <link rel="apple-touch-icon" sizes="180x180" href="https://i.imgur.com/neSyHI0.png">
-
-  <style>
-    :root {
-      --red:        #C8102E;
-      --red-dark:   #9B0C22;
-      --red-soft:   #F5D5DB;
-      --black:      #0F0F0F;
-      --charcoal:   #2B2B2B;
-      --white:      #FFFFFF;
-      --off-white:  #FDF7F7;
-      --glass:      rgba(255,255,255,0.18);
-      --glass-dark: rgba(15,15,15,0.45);
-      --shadow:     0 8px 40px rgba(0,0,0,0.18);
-      --shadow-red: 0 8px 32px rgba(200,16,46,0.22);
-    }
-
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Jost', sans-serif;
-      background: var(--off-white);
-      color: var(--charcoal);
-      overflow-x: hidden;
-    }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--off-white); }
-    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 99px; }
-
-    /* ─── NAV ─────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 72px;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(200,16,46,0.12);
-      transition: box-shadow 0.3s ease;
-    }
-    nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .nav-logo-icon {
-      width: 36px; height: 36px;
-      background: var(--red);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: white;
-      font-size: 18px;
-      flex-shrink: 0;
-      box-shadow: var(--shadow-red);
-    }
-    .nav-logo-icon img {
-      width: 100%; height: 100%;
-      object-fit: contain;
-      display: block;
-      border-radius: 50%;
-    }
-    .nav-logo-text { line-height: 1.1; }
-    .nav-logo-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px; font-weight: 700;
-      color: var(--black);
-      letter-spacing: 0.01em;
-    }
-    .nav-logo-sub {
-      font-size: 10px; font-weight: 500;
-      color: var(--red);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-size: 13px; font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--charcoal);
-      position: relative;
-      transition: color 0.25s ease;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -3px; left: 0;
-      width: 0; height: 2px;
-      background: var(--red);
-      border-radius: 99px;
-      transition: width 0.3s ease;
-    }
-    .nav-links a:hover { color: var(--red); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--red); }
-    .nav-links a.active::after { width: 100%; }
-
-    .nav-cta {
-      background: var(--red);
-      color: white !important;
-      padding: 10px 22px;
-      border-radius: 99px;
-      font-size: 12px !important;
-      font-weight: 600 !important;
-      letter-spacing: 0.1em;
-      box-shadow: var(--shadow-red);
-      transition: background 0.25s, transform 0.2s, box-shadow 0.25s !important;
-    }
-    .nav-cta:hover {
-      background: var(--red-dark) !important;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 36px rgba(200,16,46,0.35) !important;
-    }
-    .nav-cta::after { display: none !important; }
-
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 8px;
-      background: none;
-      border: none;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--charcoal);
-      border-radius: 99px;
-      transition: all 0.3s;
-    }
-
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      top: 72px; left: 0; right: 0;
-      background: rgba(255,255,255,0.97);
-      backdrop-filter: blur(20px);
-      z-index: 998;
-      flex-direction: column;
-      padding: 24px 32px;
-      gap: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      border-bottom: 1px solid rgba(200,16,46,0.1);
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      text-decoration: none;
-      font-size: 16px; font-weight: 500;
-      color: var(--charcoal);
-      transition: color 0.2s;
-      padding: 8px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .mobile-nav a:hover { color: var(--red); }
-    .mobile-nav a:last-child { border-bottom: none; }
-
-    /* ─── PAGE HEADER ─────────────────────────────────── */
-    .page-header {
-      background: var(--black);
-      padding: 140px 60px 80px;
-      position: relative;
-      overflow: hidden;
-    }
-    .page-header::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(200,16,46,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .page-header-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    .page-header-eyebrow {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red-soft);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .page-header-eyebrow::before {
-      content: '';
-      width: 32px; height: 1.5px;
-      background: var(--red);
-    }
-    .page-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(36px, 5vw, 64px);
-      font-weight: 700;
-      color: white;
-      line-height: 1.08;
-      margin-bottom: 18px;
-    }
-    .page-header h1 em { font-style: italic; color: var(--red-soft); }
-    .page-header p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px; font-weight: 300;
-      color: rgba(255,255,255,0.65);
-      max-width: 520px;
-      line-height: 1.65;
-    }
-
-    /* ─── SECTION COMMONS ─────────────────────────────── */
-    .section-eyebrow {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .section-eyebrow::before {
-      content: '';
-      width: 32px; height: 1.5px;
-      background: var(--red);
-      border-radius: 99px;
-    }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 3.5vw, 44px);
-      font-weight: 700;
-      color: var(--black);
-      line-height: 1.12;
-      margin-bottom: 12px;
-    }
-    .section-title em { font-style: italic; color: var(--red); }
-
-    /* ─── FORMS INTRO STRIP ───────────────────────────── */
-    #forms-intro {
-      background: white;
-      padding: 60px 60px 0;
-    }
-    .forms-intro-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    .intro-card {
-      background: var(--off-white);
-      border: 1px solid rgba(200,16,46,0.09);
-      border-radius: 18px;
-      padding: 28px 28px 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      transition: box-shadow 0.25s, transform 0.25s;
-    }
-    .intro-card:hover {
-      box-shadow: 0 10px 32px rgba(0,0,0,0.08);
-      transform: translateY(-3px);
-    }
-    .intro-card-icon {
-      width: 44px; height: 44px;
-      background: var(--red-soft);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px;
-      flex-shrink: 0;
-    }
-    .intro-card-text strong {
-      display: block;
-      font-size: 15px; font-weight: 600;
-      color: var(--black);
-      margin-bottom: 4px;
-    }
-    .intro-card-text span {
-      font-size: 13px;
-      color: #888;
-      line-height: 1.55;
-    }
-
-    /* ─── JUMP NAV ──────────────────────────────────────── */
-    .jump-nav {
-      background: white;
-      border-bottom: 1px solid rgba(200,16,46,0.1);
-      padding: 0 60px;
-      position: sticky;
-      top: 72px;
-      z-index: 90;
-    }
-    .jump-nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      gap: 0;
-    }
-    .jump-nav a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #999;
-      padding: 16px 24px 14px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-color 0.2s;
-      white-space: nowrap;
-    }
-    .jump-nav a:hover {
-      color: var(--red);
-      border-bottom-color: var(--red);
-    }
-    .jump-nav-dot {
-      font-size: 10px;
-      color: rgba(200,16,46,0.3);
-      align-self: center;
-    }
-    @media (max-width: 960px) {
-      nav { padding: 0 24px; }
-      .nav-links { gap: 20px; }
-      .nav-cta { display: none; }
-    }
-
-    /* ─── FORM BLOCKS ─────────────────────────────────── */
-    .form-block {
-      padding: 80px 60px;
-      scroll-margin-top: 72px;
-    }
-    .form-block:nth-child(odd) { background: white; }
-    .form-block:nth-child(even) { background: var(--off-white); }
-
-    .form-block-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 72px;
-      align-items: start;
-    }
-
-    .form-meta .section-eyebrow { margin-bottom: 12px; }
-    .form-meta .section-title { margin-bottom: 14px; }
-    .form-meta-desc {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-weight: 300;
-      color: #666;
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
-    .form-meta-note {
-      background: var(--red-soft);
-      border-left: 3px solid var(--red);
-      border-radius: 0 10px 10px 0;
-      padding: 14px 18px;
-      font-size: 13px;
-      color: var(--red-dark);
-      line-height: 1.55;
-    }
-    .form-meta-note strong { display: block; margin-bottom: 2px; }
-
-    /* Cognito embed container */
-    .cognito-wrap {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid rgba(200,16,46,0.08);
-      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
-      padding: 12px;
-      min-height: 200px;
-    }
-    .cognito-wrap iframe,
-    .cognito-wrap > div {
-      display: block;
-      width: 100%;
-      border: none;
-    }
-
-    /* Placeholder shown until embed is added */
-    .embed-placeholder {
-      border: 2px dashed rgba(200,16,46,0.22);
-      border-radius: 14px;
-      padding: 52px 32px;
-      text-align: center;
-      color: var(--red);
-      background: #fff8f9;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-    }
-    .embed-placeholder-icon { font-size: 36px; opacity: 0.4; }
-    .embed-placeholder strong {
-      font-size: 15px; font-weight: 600;
-      color: var(--red-dark);
-    }
-    .embed-placeholder code {
-      font-size: 12px;
-      background: rgba(200,16,46,0.07);
-      padding: 6px 14px;
-      border-radius: 8px;
-      color: var(--red);
-      font-family: monospace;
-    }
-    .embed-placeholder p {
-      font-size: 13px;
-      color: #aaa;
-      max-width: 320px;
-      line-height: 1.6;
-    }
-
-    /* ─── FOOTER ──────────────────────────────────────── */
-    footer {
-      background: var(--black);
-      color: white;
-      padding: 80px 60px 40px;
-    }
-    .footer-inner { max-width: 1200px; margin: 0 auto; }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 1fr;
-      gap: 60px;
-      margin-bottom: 64px;
-    }
-    .footer-brand p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.7;
-      margin-top: 16px;
-      max-width: 280px;
-    }
-    .footer-col h4 {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
-      margin-bottom: 20px;
-    }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-    .footer-col ul a {
-      text-decoration: none;
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      transition: color 0.2s, padding-left 0.2s;
-    }
-    .footer-col ul a:hover { color: white; padding-left: 4px; }
-    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin-bottom: 32px; }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .footer-copy { font-size: 12.5px; color: rgba(255,255,255,0.35); }
-    .footer-copy span { color: var(--red); }
-    .footer-social { display: flex; gap: 12px; }
-    .social-btn {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.07);
-      display: flex; align-items: center; justify-content: center;
-      text-decoration: none;
-      color: rgba(255,255,255,0.5);
-      font-size: 15px;
-      transition: background 0.25s, color 0.25s, transform 0.2s;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-    .social-btn:hover { background: var(--red); color: white; border-color: var(--red); transform: translateY(-2px); }
-
-    /* ─── ANIMATIONS ──────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* ─── RESPONSIVE ──────────────────────────────────── */
-    @media (max-width: 1024px) {
-      nav { padding: 0 32px; }
-      .page-header { padding: 120px 40px 64px; }
-      .form-block { padding: 64px 40px; scroll-margin-top: 72px; }
-      .jump-nav { padding: 0 40px; }
-      #forms-intro { padding: 48px 40px 0; }
-      .form-block-inner { grid-template-columns: 1fr; gap: 36px; }
-      .forms-intro-grid { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
-    }
-    @media (max-width: 768px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .page-header { padding: 108px 24px 52px; }
-      .form-block { padding: 52px 24px; scroll-margin-top: 72px; }
-      .jump-nav {
-        padding: 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        position: sticky;
-        box-shadow:
-          inset 20px 0 16px -16px rgba(15,15,15,0.12),
-          inset -20px 0 16px -16px rgba(15,15,15,0.12);
-      }
-      .jump-nav-inner {
-        width: max-content;
-        min-width: 100%;
-        padding: 0 24px;
-      }
-      .jump-nav a { padding: 14px 16px 12px; font-size: 11px; }
-      #forms-intro { padding: 36px 24px 0; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      footer { padding: 60px 24px 32px; }
-    }
-
-    /* ─── PAGE TRANSITIONS ───────────────────────────── */
-    body {
-      opacity: 0;
-      transition: opacity 0.22s ease;
-    }
-    body.page-visible { opacity: 1; }
-    body.page-exit { opacity: 0; transition: opacity 0.16s ease; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-forms">
 
   <!-- ─── NAV ─────────────────────────────────────── -->
   <nav id="navbar">
@@ -570,8 +27,8 @@
     <ul class="nav-links">
       <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#services">Services</a></li>
-      <li><a href="index.html#destinations">Destinations</a></li>
       <li><a href="index.html#testimonials">Reviews</a></li>
+      <li><a href="connect.html">Connect</a></li>
       <li><a href="forms.html" class="active">Forms</a></li>
       <li><a href="index.html#quote" class="nav-cta">Get a Free Quote</a></li>
     </ul>
@@ -584,7 +41,7 @@
   <div class="mobile-nav" id="mobileNav">
     <a href="index.html#about" onclick="closeMobile()">About Crystal</a>
     <a href="index.html#services" onclick="closeMobile()">Services</a>
-    <a href="index.html#destinations" onclick="closeMobile()">Destinations</a>
+    <a href="connect.html" onclick="closeMobile()">Connect</a>
     <a href="index.html#process" onclick="closeMobile()">How It Works</a>
     <a href="index.html#testimonials" onclick="closeMobile()">Reviews</a>
     <a href="forms.html" onclick="closeMobile()" style="color:var(--red);font-weight:600;">✦ Client Forms</a>
@@ -783,6 +240,46 @@
     hamburger.addEventListener('click', () => mobileNav.classList.toggle('open'));
     function closeMobile() { mobileNav.classList.remove('open'); }
 
+    function scrollToFormHashAfterEmbed() {
+      const hash = window.location.hash;
+      if (!hash) return;
+
+      const target = document.querySelector(hash);
+      if (!target || !target.classList.contains('form-block')) return;
+
+      // Double rAF cancels the browser's native hash-scroll reliably
+      requestAnimationFrame(() => requestAnimationFrame(() => window.scrollTo(0, 0)));
+
+      // All form blocks *above* the target also affect its scroll position as their
+      // Cognito iframes load and expand — so wait for all of them, not just the target.
+      const allBlocks = Array.from(document.querySelectorAll('.form-block'));
+      const targetIdx = allBlocks.indexOf(target);
+      const wrapsToAwait = allBlocks
+        .slice(0, targetIdx + 1)
+        .map(b => b.querySelector('.cognito-wrap'))
+        .filter(Boolean);
+
+      let remaining = wrapsToAwait.length;
+
+      const onLoaded = () => {
+        if (--remaining === 0) {
+          requestAnimationFrame(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+      };
+
+      wrapsToAwait.forEach(wrap => {
+        const ro = new ResizeObserver(entries => {
+          if (entries[0].contentRect.height > 100) {
+            ro.disconnect();
+            onLoaded();
+          }
+        });
+        ro.observe(wrap);
+      });
+    }
+
     /* ─ Page transition ─ */
     window.addEventListener('pageshow', () => document.body.classList.add('page-visible'));
     document.addEventListener('click', e => {
@@ -807,6 +304,8 @@
       });
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
+
+    scrollToFormHashAfterEmbed();
   </script>
 </body>
 </html>

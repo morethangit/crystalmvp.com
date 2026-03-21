@@ -13,15 +13,16 @@ const PHOTOS = {
     disney: 'https://i.imgur.com/3ST9ps3.jpeg',
     caribbean: 'https://i.imgur.com/PyF1Q7m.jpeg',
     maldives: 'https://i.imgur.com/zY9o6Q3.jpeg',
-    europe: 'https://i.imgur.com/e7foQ2d.jpeg', 
+    europe: 'https://i.imgur.com/e7foQ2d.jpeg',
+    mexico: 'https://i.imgur.com/qdsJsrw.jpeg',
     headshot: 'https://i.imgur.com/WlY38iZ.jpeg', 
   },
   aboutCarousel: [
-    'https://i.imgur.com/WlY38iZ.jpeg',
-    'https://i.imgur.com/MDgbIol.jpeg',
-    'https://i.imgur.com/e7foQ2d.jpeg',
-    'https://i.imgur.com/qdsJsrw.jpeg',
-    'https://i.imgur.com/XPCHYw4.jpeg'
+    'https://i.imgur.com/FHCdcEd.png',
+    'https://i.imgur.com/9w20ODe.jpeg',
+    'https://i.imgur.com/5RCLxcj.jpeg',
+    'https://i.imgur.com/TbpHNoA.jpeg',
+    'https://i.imgur.com/PHDTDBh.jpeg'
   ],
   branding: {
     mvpLogoCircle: 'https://i.imgur.com/Wc3NSHn.png',
