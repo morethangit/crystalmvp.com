@@ -14,7 +14,7 @@ const PHOTOS = {
     caribbean: 'https://i.imgur.com/PyF1Q7m.jpeg',
     maldives: 'https://i.imgur.com/zY9o6Q3.jpeg',
     europe: 'https://i.imgur.com/e7foQ2d.jpeg',
-    mexico: 'https://i.imgur.com/qdsJsrw.jpeg',
+    mexico: 'https://i.imgur.com/I2tO19L.jpeg',
     headshot: 'https://i.imgur.com/WlY38iZ.jpeg', 
   },
   aboutCarousel: [
