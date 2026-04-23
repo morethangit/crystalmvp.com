@@ -22,7 +22,7 @@ const PHOTOS = {
     'https://i.imgur.com/9w20ODe.jpeg',
     'https://i.imgur.com/5RCLxcj.jpeg',
     'https://i.imgur.com/TbpHNoA.jpeg',
-    'https://i.imgur.com/PHDTDBh.jpeg'
+    'https://i.imgur.com/ofqZq7s.jpeg'
   ],
   branding: {
     mvpLogoCircle: 'https://i.imgur.com/Wc3NSHn.png',
