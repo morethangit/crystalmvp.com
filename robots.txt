@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /test_submit.html
+Sitemap: https://www.crystalmvp.com/sitemap.xml
