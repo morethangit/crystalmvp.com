@@ -3,30 +3,30 @@
 
 const PHOTOS = {
   heroSlides: [
-    'https://i.imgur.com/MDgbIol.jpeg', // Slide 1
-    'https://i.imgur.com/qdsJsrw.jpeg', // Slide 2
-    'https://i.imgur.com/I2tO19L.jpeg', // Slide 3
-    'https://i.imgur.com/e7foQ2d.jpeg', // Slide 4
-    'https://i.imgur.com/XPCHYw4.jpeg', // Slide 5
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1920/slide-1.jpg', // Slide 1
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1920/v1778734113/qdsJsrw_5106x2872_axwuoy.jpg', // Slide 2
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1920/slide-3.jpg', // Slide 3
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1920/slide-4.jpg', // Slide 4
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1920/slide-5.jpg', // Slide 5
   ],
   destinations: {
-    disney: 'https://i.imgur.com/3ST9ps3.jpeg',
-    caribbean: 'https://i.imgur.com/PyF1Q7m.jpeg',
-    maldives: 'https://i.imgur.com/zY9o6Q3.jpeg',
-    europe: 'https://i.imgur.com/e7foQ2d.jpeg',
-    mexico: 'https://i.imgur.com/I2tO19L.jpeg',
-    headshot: 'https://i.imgur.com/WlY38iZ.jpeg', 
+    disney: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1080,c_fill,g_auto/dest-disney.jpg',
+    caribbean: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1080,c_fill,g_auto/dest-caribbean.jpg',
+    maldives: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1080,c_fill,g_auto/dest-maldives.jpg',
+    europe: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1080,c_fill,g_auto/slide-4.jpg',
+    mexico: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1080,c_fill,g_auto/slide-3.jpg',
+    headshot: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1200/headshot.jpg', 
   },
   aboutCarousel: [
-    'https://i.imgur.com/FHCdcEd.png',
-    'https://i.imgur.com/9w20ODe.jpeg',
-    'https://i.imgur.com/5RCLxcj.jpeg',
-    'https://i.imgur.com/TbpHNoA.jpeg',
-    'https://i.imgur.com/ofqZq7s.jpeg'
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1800,c_fill,g_auto/about-carousel-1.png',
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1800,c_fill,g_auto/about-carousel-2.jpg',
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1800,c_fill,g_auto/about-carousel-3.jpg',
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1800,c_fill,g_auto/about-carousel-4.jpg',
+    'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_1440,h_1800,c_fill,g_auto/about-carousel-5.jpg'
   ],
   branding: {
-    mvpLogoCircle: 'https://i.imgur.com/Wc3NSHn.png',
-    mvpLogoWordmark: 'https://i.imgur.com/cQa4ulW.png'
+    mvpLogoCircle: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_300/mvp-circle.png',
+    mvpLogoWordmark: 'https://res.cloudinary.com/dqft1ijrq/image/upload/f_auto,q_85,w_300/mvp-wordmark.png'
   }
 };
 
