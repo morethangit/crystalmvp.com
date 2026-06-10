@@ -186,7 +186,7 @@
         const response = await fetch('https://sheetdb.io/api/v1/3rdtk0n8piykq', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ data: [{ Name: name, Email: email }] })
+          body: JSON.stringify({ data: [{ Name: name, Email: email, Date: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }) }] })
         });
 
         if (!response.ok) throw new Error('Failed to subscribe');
