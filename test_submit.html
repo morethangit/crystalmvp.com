@@ -37,6 +37,7 @@
       btn.disabled = true;
 
       const data = {
+        "Date of Entry": new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
         "First Name": e.target.fname.value,
         "Last Name": e.target.lname.value,
         "Email": e.target.email.value,
@@ -45,7 +46,7 @@
         "Number of Travelers": e.target.travelers.value,
         "Approximate Departure": e.target.depart.value,
         "Rough Budget": e.target.budget.value,
-        "Anything else I should know?": e.target.notes.value
+        "Anything else I should know?": e.target.notes.value,
       };
 
       try {
