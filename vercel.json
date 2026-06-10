@@ -29,7 +29,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.cognitoforms.com https://static.cognitoforms.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://www.cognitoforms.com https://static.cognitoforms.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com https://static.cognitoforms.com; img-src 'self' data: https://res.cloudinary.com https://www.cognitoforms.com https://static.cognitoforms.com; connect-src 'self' https://www.cognitoforms.com https://static.cognitoforms.com; frame-src https://www.cognitoforms.com; frame-ancestors 'none';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.cognitoforms.com https://static.cognitoforms.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com https://www.cognitoforms.com https://static.cognitoforms.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com https://static.cognitoforms.com https://fonts.cognitoforms.com; img-src 'self' data: https://res.cloudinary.com https://www.cognitoforms.com https://static.cognitoforms.com; connect-src 'self' https://www.cognitoforms.com https://static.cognitoforms.com; frame-src https://www.cognitoforms.com; frame-ancestors 'none';"
         }
       ]
     }
